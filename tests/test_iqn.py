@@ -17,3 +17,7 @@ def test_rfc_examples():
     assert a.get_naming_authority() == 'com.example'
     assert a.get_extra() == ''
     assert a.get_extra_fields() == ()
+
+def test_copy_ctor():
+    a = IQN('iqn.2001-04.com.example')
+    assert IQN(a) == a

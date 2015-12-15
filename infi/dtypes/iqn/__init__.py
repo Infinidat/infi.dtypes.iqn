@@ -1,7 +1,10 @@
 class IQN(object):
     def __init__(self, name):
         super(IQN, self).__init__()
-        self._name = name
+        if isinstance(name, IQN):
+            self._name = name._name
+        else:
+            self._name = name
         fields = self._name.split(':')
         base, self._extra = fields[0], tuple(fields[1:])
         base_fields = base.split('.')
