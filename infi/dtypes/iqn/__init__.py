@@ -1,3 +1,8 @@
+class InvalidIQN(ValueError):
+    def __init__(self, name):
+        super(InvalidIQN, self).__init__('Invalid IQN {}'.format(name))
+
+
 class IQN(object):
     def __init__(self, name):
         super(IQN, self).__init__()
@@ -8,10 +13,13 @@ class IQN(object):
         fields = self._name.split(':')
         base, self._extra = fields[0], tuple(fields[1:])
         base_fields = base.split('.')
+        if len(base_fields) < 2:
+            raise InvalidIQN(name)
         self._type = base_fields[0]
         self._date = base_fields[1]
         self._naming_authority = '.'.join(base_fields[2:])
-        assert self._type == 'iqn'
+        if self._type != 'iqn':
+            raise InvalidIQN(name)
 
     def __repr__(self):
         return self._name
