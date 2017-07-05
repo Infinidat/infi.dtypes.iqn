@@ -6,7 +6,8 @@ python:
 - '3.6'
 install:
 - pip install -e .
-script: py.test tests
+- pip install -U pytest
+script: pytest tests
 deploy:
   provider: pypi
   user: spatz

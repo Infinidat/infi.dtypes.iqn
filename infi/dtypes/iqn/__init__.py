@@ -6,10 +6,7 @@ class InvalidIQN(ValueError):
 class iSCSIName(object):
     def __init__(self, name):
         super(iSCSIName, self).__init__()
-        if isinstance(name, iSCSIName):
-            self._name = name._name  # pylint: disable=protected-access
-        else:
-            self._name = name
+        self._name = name._name if isinstance(name, iSCSIName) else name.lower() # pylint: disable=protected-access
 
     def __repr__(self):
         return self._name
